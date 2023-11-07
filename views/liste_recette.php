@@ -42,7 +42,7 @@ function afficherRecettes() {
     divRecettes.innerHTML += content;
     nbRecetteAfficher += 10;
 }
-
+afficherRecettes();
 </script>
 
 <?php $content = ob_get_clean();
