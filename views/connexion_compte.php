@@ -60,7 +60,7 @@
                     <div class="flex justify-center">
 
                         <div class="flex items-start">
-                            <a href="creation_compte.php" title="S'inscrire" class="text-charte_bleu_fonce text-sm font-medium hover:underline text-right">Je n'ai pas de compte</a>
+                            <a href="index.php?action=creation_compte" title="S'inscrire" class="text-charte_bleu_fonce text-sm font-medium hover:underline text-right">Je n'ai pas de compte</a>
                         </div>
 
                     </div>

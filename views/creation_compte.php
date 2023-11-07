@@ -1,12 +1,6 @@
-<?php ob_start();
-    // Appel des fichiers où sont rédigées ou managées les requêtes SQL
-    require_once '../../../controller/page/manager_creation_compte.php';
-
-    require_once '../../../model/page/requetes_creation_compte.php';
-?>
+<?php ob_start();?>
 
 <!-- Appel des fichiers où sont rédigées les fonctions JS -->
-<script src="../../js/page/script_creation_compte.js"></script>
 
 
 <!-- ↓----------------------------------------------------↓ Code de la page ↓----------------------------------------------------↓ -->
@@ -116,4 +110,4 @@
 ?>
 
 <?php $content = ob_get_clean();
-require_once('../template.php'); ?>
+require_once('template.php'); ?>

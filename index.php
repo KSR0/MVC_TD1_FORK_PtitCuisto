@@ -3,6 +3,8 @@
 require_once('src/controllers/edito.php');
 require_once('src/controllers/liste_recette.php');
 require_once('src/controllers/connexion_compte.php');
+require_once('src/controllers/creation_compte.php');
+
 
 try {
 	if (isset($_GET['action']) && $_GET['action'] !== '') {
@@ -16,6 +18,9 @@ try {
 		}
 		else if ($_GET['action'] === 'connexion_compte') {
 			connexion_compte();
+		}
+		else if ($_GET['action'] === 'creation_compte') {
+			creation_compte();
 		}
 		else {
 			echo "Erreur 404 : la page que vous recherchez n'existe pas.";
