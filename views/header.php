@@ -74,19 +74,25 @@
 
                 <div class="leading-7 text-left text-sm font-thin mt-2 w-4/5 mx-auto" id="submenu">
 
-                    <div onclick="desactiver_sous_menu(); desactiver_sous_menu_deroulant(); desactiver_bouton_mobile(); desactiver_logo_menu(); fond_clair(); fond_clair_deroulant(); fond_clair_logo()" id="categorie" class="element_menu cursor-pointer modal-open1 p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 hover:bg-charte_bleu_fonce">
+                    <hr class="my-2 mt-3 text-charte_blanc">
+
+                    <div id="categorie" class="cursor-pointer modal-open1 p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 hover:bg-charte_bleu_fonce">
                         <i class="bi bi-book"></i>
                         <p data-modal-target="staticModal" data-modal-toggle="staticModal" class="text-[15px] ml-4 text-gray-200">Catégorie</p>
                         <script>ouvrir_modale(1)</script>
                     </div>
 
-                    <div onclick="desactiver_sous_menu(); desactiver_sous_menu_deroulant(); desactiver_bouton_mobile(); desactiver_logo_menu(); fond_clair(); fond_clair_deroulant(); fond_clair_logo()" id="titre" class="element_menu cursor-pointer modal-open2 p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 hover:bg-charte_bleu_fonce">
+                    <hr class="my-2 mt-3 text-charte_blanc">
+
+                    <div id="titre" class="cursor-pointer modal-open2 p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 hover:bg-charte_bleu_fonce">
                         <i class="bi bi-search"></i>
                         <p data-modal-target="staticModal" data-modal-toggle="staticModal" class="text-[15px] ml-4 text-gray-200">Titre</p>
                         <script>ouvrir_modale(2)</script>
                     </div>
 
-                    <div onclick="desactiver_sous_menu(); desactiver_sous_menu_deroulant(); desactiver_bouton_mobile(); desactiver_logo_menu(); fond_clair(); fond_clair_deroulant(); fond_clair_logo()" id="ingredient" class="element_menu cursor-pointer modal-open3 p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 hover:bg-charte_bleu_fonce">
+                    <hr class="my-2 mt-3 text-charte_blanc">
+
+                    <div id="ingredient" class="cursor-pointer modal-open3 p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 hover:bg-charte_bleu_fonce">
                         <i class="bi bi-cart"></i>
                         <p data-modal-target="staticModal" data-modal-toggle="staticModal" class="text-[15px] ml-4 text-gray-200">Ingrédient(s)</p>
                         <script>ouvrir_modale(3)</script>
