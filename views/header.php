@@ -51,7 +51,7 @@
                     </div>
                 </a>
 
-                <a href="index.php?action=recette">
+                <a href="index.php?action=liste_recette">
                     <div class="element_menu cursor-pointer p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 hover:bg-charte_bleu_fonce">
                         
                         <i class="bi bi-bookmark-fill"></i>

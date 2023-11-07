@@ -17,7 +17,7 @@ class Recette {
 
 }
 
-class PostRepository {
+class RecetteRepository {
     public ?PDO $bdd = null;
 
     public function dbConnect()
@@ -37,7 +37,7 @@ class PostRepository {
     {
         $this->dbConnect($this);
         $requeteRecettes = $this->bdd->query(
-            "SELECT REC_ID, CAT_ID, REC_IMAGE, REC_TITRE, REC_CONTENU, REC_RESUME, CAT_INTITULE, TAG_INTITULE, REC_DATE_CREA, REC_DATE_MODIF, USER_ID, USER_PSEUDO FROM FORK_RECETTE JOIN FORK_CATEGORIE USING(CAT_ID) JOIN FORK_MENTIONNER USING(REC_ID) JOIN FORK_TAGS USING(TAG_ID) JOIN FORK_UTILISATEUR USING(USER_ID) ORDER BY rec_date_crea DESC LIMIT 15;"
+            "SELECT REC_ID, CAT_ID, REC_IMAGE, REC_TITRE, REC_CONTENU, REC_RESUME, CAT_INTITULE, REC_DATE_CREA, REC_DATE_MODIF, USER_ID, USER_PSEUDO FROM FORK_RECETTE JOIN FORK_CATEGORIE USING(CAT_ID) JOIN FORK_UTILISATEUR USING(USER_ID) ORDER BY rec_date_crea;"
         );
         $recettes = [];
         while (($row = $requeteRecettes->fetch())) {
@@ -50,13 +50,20 @@ class PostRepository {
             $recette->rec_resume = $row['REC_RESUME'];
             $recette->rec_image = $row['REC_IMAGE'];
             $recette->cat_intitule = $row['CAT_INTITULE'];
-            $recette->tags_intitule = $row['TAG_INTITULE'];
             $recette->rec_date_crea = $row['REC_DATE_CREA'];
             $recette->rec_date_modif = $row['REC_DATE_MODIF'];
             $recette->rec_auteur = $row['USER_PSEUDO'];
+            
+            $requeteTags = $this->bdd->prepare(
+                "SELECT TAG_INTITULE FROM FORK_TAGS JOIN FORK_MENTIONNER USING(TAG_ID) JOIN FORK_RECETTE USING(REC_ID) WHERE REC_ID = ?"
+            );
+            $requeteTags->execute([$recette->rec_id]);
+            $recette->tags_intitule = '';
+            while (($row = $requeteTags->fetch())) {
+                $recette->tags_intitule .= '#' . $row['TAG_INTITULE'] . ' ';
+            }
             $recettes[] = $recette;
         }
-    
         return $recettes;
     }
 
@@ -82,6 +89,15 @@ class PostRepository {
         $recette->rec_date_crea = $row['REC_DATE_CREA'];
         $recette->rec_date_modif = $row['REC_DATE_MODIF'];
         $recette->rec_auteur = $row['USER_PSEUDO'];
+
+        $requeteTags = $this->bdd->prepare(
+            "SELECT TAG_INTITULE FROM FORK_TAGS JOIN FORK_MENTIONNER USING(TAG_ID) JOIN FORK_RECETTE USING(REC_ID) WHERE REC_ID = ?"
+        );
+        $requeteTags->execute([$recette->rec_id]);
+        $recette->tags_intitule = '';
+        while (($row = $requeteTags->fetch())) {
+            $recette->tags_intitule .= '#' . $row['TAG_INTITULE'] . ' ';
+        }
     
         return $recette;
     }
