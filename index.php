@@ -2,6 +2,7 @@
 
 require_once('src/controllers/edito.php');
 require_once('src/controllers/liste_recette.php');
+require_once('src/controllers/details_recette.php');
 require_once('src/controllers/connexion_compte.php');
 require_once('src/controllers/creation_compte.php');
 
@@ -9,7 +10,7 @@ require_once('src/controllers/creation_compte.php');
 try {
 	if (isset($_GET['action']) && $_GET['action'] !== '') {
 		if ($_GET['action'] === 'liste_recette') {
-			recette();
+			recettes();
 		}
 		else if ($_GET['action'] === 'details_recette') {
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
