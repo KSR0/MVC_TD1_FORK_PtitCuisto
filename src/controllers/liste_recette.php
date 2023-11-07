@@ -7,4 +7,5 @@ function recettes() {
 	$recettes = $recetteRepository->getRecettes();
 	require('views/liste_recette.php');
 }
+
 ?>
