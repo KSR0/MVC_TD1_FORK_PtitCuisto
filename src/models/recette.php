@@ -1,18 +1,20 @@
 <?php
 
 
-
 class Recette {
-    public int $id;
+    public int $rec_id;
     public int $cat_id;
     public int $user_id;
     public string $rec_titre;
     public string $rec_contenu;
     public string $rec_resume;
     public string $rec_image;
+    public string $cat_intitule;
+    public string $tags_intitule;
     public string $rec_date_crea;
     public string $rec_date_modif;
     public string $rec_auteur;
+
 }
 
 class PostRepository {
@@ -34,85 +36,55 @@ class PostRepository {
     public function getRecettes(): array 
     {
         $this->dbConnect($this);
-        $requeteRecette = $this->bdd->query(
-            "SELECT REC_ID, REC_IMAGE, REC_TITRE, CAT_INTITULE, REC_RESUME, TAG_INTITULE FROM FORK_RECETTE JOIN FORK_CATEGORIE USING(CAT_ID) JOIN FORK_TAGS USING(TAG_ID) ORDER BY rec_date_crea DESC LIMIT 15;"
+        $requeteRecettes = $this->bdd->query(
+            "SELECT REC_ID, CAT_ID, REC_IMAGE, REC_TITRE, REC_CONTENU, REC_RESUME, CAT_INTITULE, TAG_INTITULE, REC_DATE_CREA, REC_DATE_MODIF, USER_ID, USER_PSEUDO FROM FORK_RECETTE JOIN FORK_CATEGORIE USING(CAT_ID) JOIN FORK_MENTIONNER USING(REC_ID) JOIN FORK_TAGS USING(TAG_ID) JOIN FORK_UTILISATEUR USING(USER_ID) ORDER BY rec_date_crea DESC LIMIT 15;"
         );
         $recettes = [];
-        while (($row = $requeteRecette->fetch())) {
+        while (($row = $requeteRecettes->fetch())) {
             $recette = new Recette();
-            $recette->id = $row[''];
-            $recette->cat_id = $row[''];
-            $recette->user_id = $row[''];
-            $recette->rec_titre = $row[''];
-            $recette->rec_contenu = $row[''];
-            $recette->rec_resume = $row[''];
-            $recette->rec_image = $row[''];
-            $recette->rec_date_crea = $row[''];
-            $recette->rec_date_modif = $row[''];
-            $recette->rec_auteur = $row[''];
-    
+            $recette->rec_id = $row['REC_ID'];
+            $recette->cat_id = $row['CAT_ID'];
+            $recette->user_id = $row['USER_ID'];
+            $recette->rec_titre = $row['REC_TITRE'];
+            $recette->rec_contenu = $row['REC_CONTENU'];
+            $recette->rec_resume = $row['REC_RESUME'];
+            $recette->rec_image = $row['REC_IMAGE'];
+            $recette->cat_intitule = $row['CAT_INTITULE'];
+            $recette->tags_intitule = $row['TAG_INTITULE'];
+            $recette->rec_date_crea = $row['REC_DATE_CREA'];
+            $recette->rec_date_modif = $row['REC_DATE_MODIF'];
+            $recette->rec_auteur = $row['USER_PSEUDO'];
             $recettes[] = $recette;
         }
     
         return $recettes;
     }
 
-    public function getRecette(string $identifier): Post {
+    public function getRecette(string $identifiant): Recette {
         $this->dbConnect($this);
-        $statement = $this->bdd->prepare(
-            "SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS french_creation_date FROM posts WHERE id = ?"
+        $requeteRecette = $this->bdd->prepare(
+            "SELECT REC_ID, CAT_ID, REC_IMAGE, REC_TITRE, REC_CONTENU, REC_RESUME, CAT_INTITULE, TAG_INTITULE, REC_DATE_CREA, REC_DATE_MODIF, USER_ID, USER_PSEUDO FROM FORK_RECETTE JOIN FORK_CATEGORIE USING(CAT_ID) JOIN FORK_MENTIONNER USING(REC_ID) JOIN FORK_TAGS USING(TAG_ID) JOIN FORK_UTILISATEUR USING(USER_ID) WHERE REC_ID = ?"
         );
-        $statement->execute([$identifier]);
+        $requeteRecette->execute([$identifiant]);
     
-        $row = $statement->fetch();
+        $row = $requeteRecette->fetch();
     
-        $post = new Post();
-        $post->title = $row['title'];
-        $post->frenchCreationDate = $row['french_creation_date'];
-        $post->content = $row['content'];
-        $post->identifier = $row['id'];
+        $recette = new Recette();
+        $recette->rec_id = $row['REC_ID'];
+        $recette->cat_id = $row['CAT_ID'];
+        $recette->user_id = $row['USER_ID'];
+        $recette->rec_titre = $row['REC_TITRE'];
+        $recette->rec_contenu = $row['REC_CONTENU'];
+        $recette->rec_resume = $row['REC_RESUME'];
+        $recette->rec_image = $row['REC_IMAGE'];
+        $recette->cat_intitule = $row['CAT_INTITULE'];
+        $recette->tags_intitule = $row['TAG_INTITULE'];
+        $recette->rec_date_crea = $row['REC_DATE_CREA'];
+        $recette->rec_date_modif = $row['REC_DATE_MODIF'];
+        $recette->rec_auteur = $row['USER_PSEUDO'];
     
-        return $post;
+        return $recette;
     }
 }
-
-?>
-
-
-
-
-
-
-
-
-<?php
-    require_once 'includes/connexionBDD.php';
-
-    function recupererToutesLesRecettes($bdd) {
-        $requeteRecette = "
-            SELECT REC_ID, REC_IMAGE, REC_TITRE, CAT_INTITULE, REC_RESUME, TAG_INTITULE FROM FORK_RECETTE JOIN FORK_CATEGORIE USING(CAT_ID) JOIN FORK_TAGS USING(TAG_ID) ORDER BY rec_date_crea DESC LIMIT 15;
-        ";
-        $reqServeurRecette = $bdd->prepare($requeteRecette);
-        $reqServeurRecette->execute();
-        $nom_variableRecette = $reqServeurRecette->fetchAll(); /*changer le nom_variable en fonction de ce que tu veux afficher*/
-
-        foreach($nom_variableRecette as $nom_table_sql_recette) { /*changer les variables nom_table_sql en fonction de la table sql utilisée*/
-            $nomPlat = $nom_table_sql_recette["REC_TITRE"];
-            $requeteTags = "SELECT TAG_INTITULE FROM FORK_TAGS WHERE TAG_RECETTE = '$nomPlat'";
-            $reqServeurTags = $bdd->prepare($requeteTags);
-            $reqServeurTags->execute();
-            $nom_variableTags = $reqServeurTags->fetchAll();
-            echo 
-            "<a href='../../../view/php/page/detail_recette.php?idPlat=" . $nom_table_sql_recette['REC_ID'] . "'>" . "<img src='" . $nom_table_sql_recette["REC_IMAGE"] . "' alt='Image recette " . $nom_table_sql_recette["REC_TITRE"] . "' width='500px'/></a>" . "<br>" .
-            "<a href='../../../view/php/page/detail_recette.php?idPlat=" . $nom_table_sql_recette['REC_ID'] . "'>" . strtoupper($nom_table_sql_recette["REC_TITRE"]) . "</a>" . "<br>" .
-            "Categorie : " . $nom_table_sql_recette["CAT_INTITULE"] . "<br>" .
-            "Resumé : " . $nom_table_sql_recette["REC_RESUME"] . "<br>" . 
-            "Tags : ";
-            foreach($nom_variableTags as $nom_table_sql_tags) {
-                echo '#' . $nom_table_sql_tags["TAG_INTITULE"] . ' ';
-            }
-        }
-    }
-
 
 ?>
