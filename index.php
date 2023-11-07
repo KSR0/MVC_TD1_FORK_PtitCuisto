@@ -11,9 +11,9 @@ try {
 		if ($_GET['action'] === 'liste_recette') {
 			recette();
 		}
-		else if ($_GET['action'] === 'recette_unique') {
+		else if ($_GET['action'] === 'details_recette') {
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				echo "page de d'une recette";
+				recette($_GET['id']);
 			}
 		}
 		else if ($_GET['action'] === 'connexion_compte') {
