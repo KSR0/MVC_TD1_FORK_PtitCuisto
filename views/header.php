@@ -1,8 +1,8 @@
 <?php
     // Appel des fichiers où sont rédigé le code pour afficher les modales
-    //require_once 'modale_categorie.php';
-    //require_once 'modale_titre.php';
-    //require_once 'modale_ingredients.php';
+    require_once 'views/modale_categorie.php';
+    require_once 'views/modale_titre.php';
+    require_once 'views/modale_ingredients.php';
 ?>
 
 <!-- Appel des fichiers où sont rédigées les fonctions JS -->
@@ -12,7 +12,7 @@
         document.querySelector('.sidebar').classList.toggle('left-[-300px]')
     }
 </script>
-<script src="script_modales.js"></script>
+<script src="views/script_modales.js"></script>
  
 
 <!-- ↓----------------------------------------------------↓ Code de la page ↓----------------------------------------------------↓ -->
@@ -96,11 +96,13 @@
 
                 <hr class="my-4 text-gray-600">
 
-                <div onclick="bouton_connexion_compte()" class="element_menu cursor-pointer p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 border-2 border-charte_blanc bg-charte_bleu_clair hover:bg-charte_bleu_fonce">
+                <a href="index.php?action=connexion_compte">
+                <div class="element_menu cursor-pointer p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 border-2 border-charte_blanc bg-charte_bleu_clair hover:bg-charte_bleu_fonce">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <p class="modal-open2 text-[15px] ml-4 text-gray-200">Se connecter</p>
                 </div>
-                
+                </a>
+
             </div>
         </div>
     </div>

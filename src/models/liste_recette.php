@@ -14,7 +14,6 @@ class Recette {
     public string $rec_date_crea;
     public string $rec_date_modif;
     public string $rec_auteur;
-
 }
 
 class RecetteRepository {
