@@ -11,7 +11,7 @@
     for ($i = 0; $i < 10; $i++) {
         if (!empty($recettes[$i])) {
             echo "<a href='index.php?action=recette_unique&id=" . $recettes[$i]->rec_id . "'>" . "<img src='" . $recettes[$i]->rec_image . "' alt='Image recette " . $recettes[$i]->rec_titre . "' width='500px'/></a>" . "<br>" .
-            strtoupper($recettes[$i]->rec_titre) . "<br>" .
+            "<a href='index.php?action=recette_unique&id=" . $recettes[$i]->rec_id . "'>" . strtoupper($recettes[$i]->rec_titre) . "</a><br>" .
             "Categorie : " . $recettes[$i]->cat_intitule . "<br>" .
             "Resumé : " . $recettes[$i]->rec_resume . "<br>" . 
             "Tags : " . $recettes[$i]->tags_intitule;
