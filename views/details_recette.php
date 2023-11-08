@@ -8,14 +8,17 @@
 
 <div id="recette">
     <?php
-        echo "<img src='" . $recette->rec_image . "' alt='Image recette " . $recette->rec_titre . "' width='500px'/></a>" . "<br>" .
-        "Titre : " . strtoupper($recette->rec_titre) . "<br>" .
-        "Auteur :"  . $recette->user_pseudo . "<br>" .
-        "Categorie : " . $recette->cat_intitule . "<br>" .
-        "Resumé : " . $recette->rec_resume . "<br>" . 
-        "Date de création :" . $recette->rec_date_crea . "<br>" .
-        "Dernière modification :" . $recette->rec_date_modif . "<br>" .
+            echo "<img src='" . $recette->rec_image . "' alt='Image recette " . $recette->rec_titre . "' width='500px'/></a>" . "<br><br>" .
+        "Titre : " . strtoupper($recette->rec_titre) . "<br><br>" .
+        "Auteur : "  . $recette->user_pseudo . "<br><br>" .
+        "Catégorie : " . $recette->cat_intitule . "<br><br>" .
+        "Résumé : " . $recette->rec_resume . "<br><br>" . 
+        "Contenu : " . $recette->rec_contenu . "<br><br>" .
+        "Date de création : " . $recette->rec_date_crea . "<br><br>" .
+        "Dernière modification : " . $recette->rec_date_modif . "<br><br>" .
         "Tags : " . $recette->tags_intitule . "<br>";
+        
+        
     ?>
 </div>
 

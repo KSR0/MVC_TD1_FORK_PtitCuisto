@@ -67,6 +67,7 @@ class RecetteRepository {
     }
 
     public function getRecette(string $identifiant): Recette {
+        
         $this->dbConnect($this);
         $requeteRecette = $this->bdd->prepare(
             "SELECT REC_ID, CAT_ID, REC_IMAGE, REC_TITRE, REC_CONTENU, REC_RESUME, CAT_INTITULE, TAG_INTITULE, REC_DATE_CREA, REC_DATE_MODIF, USER_ID, USER_PSEUDO FROM FORK_RECETTE JOIN FORK_CATEGORIE USING(CAT_ID) JOIN FORK_MENTIONNER USING(REC_ID) JOIN FORK_TAGS USING(TAG_ID) JOIN FORK_UTILISATEUR USING(USER_ID) WHERE REC_ID = ?"
