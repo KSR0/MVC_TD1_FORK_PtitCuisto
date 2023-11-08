@@ -1,3 +1,13 @@
+<?php 
+        $db_host = parse_ini_file('all_secret_variables.env')["DB_HOST"];
+        $db_name = parse_ini_file('all_secret_variables.env')["DB_NAME"];
+        $db_encode = parse_ini_file('all_secret_variables.env')["DB_ENCODE"];
+        $db_username = parse_ini_file('all_secret_variables.env')["DB_USERNAME"];
+        $db_password = parse_ini_file('all_secret_variables.env')["DB_PASSWORD"];
+
+        $bdd = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name . ';charset=' . $db_encode, $db_username, $db_password);
+?>
+
 <div id="staticModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="lg:pl-80 modal3 opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
     <div id="modal3-test" class="modal3-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>                                
     <div class="modal3-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
@@ -17,19 +27,59 @@
             </div>
 
             
-            <form>
-                <label for="choix"> Choisissez une catégorie</label>
-                <ul>
-                    <li> <input type="radio" name="categorie" id="entree"> Entrée </li>
-                    <li> <input type="radio" name="categorie" id="plat"> Plat </li>
-                    <li> <input type="radio" name="categorie" id="dessert"> Dessert </li>
-                </ul>
-            </form>
-            
-            <div class="flex justify-end pt-2">
-                <button class="modal3-close px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Fermer</button>
-                <button onclick="bouton_recherche_par_ingredients()" class="modal3-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Rechercher</button>
-            </div>
+            <div class="relative">
+
+                <select id="ingredients" name="ingredients[]" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" multiple>
+                    <option value="">Sélectionnez un ingrédient</option>
+                    <?php  
+                        $requete = "SELECT ING_INTITULE FROM FORK_INGREDIENT";
+                        $stmt = $bdd->prepare($requete);
+                        $stmt->execute();
+                        $resultats = $stmt->fetchAll();
+                        foreach($resultats as $resultat) {
+                            echo '<option value="'.$resultat['ING_INTITULE'].'">'.$resultat['ING_INTITULE'].'</option>';
+                        }  
+                    ?>
+                </select><br>
+
+                <div id="selectedIngredients"></div><br>
+
+                <div class="mb-3">
+                    <a id="lien_recette_ing" href="index.php?action=liste_recette&ingredients=">
+                        <button type="submit" name="submit" class="text-white absolute right-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Rechercher</button>
+                    </a>
+                </div>
+
+  
+            </div><br>
+
+            <script>
+                $(document).ready(function () {
+                    $("#ingredients").change(function () {
+                        console.log("Changement détecté");
+                        let selectedValue = $(this).val();
+                        console.log("Valeur sélectionnée : " + selectedValue);
+                        let link = "index.php?action=liste_recette&ingredients=" + selectedValue;
+                        console.log("Nouveau lien : " + link);
+                        $("#lien_recette_ing").attr("href", link);
+                    });
+                });
+
+                let selectedIngredientsArray = [];
+
+                document.getElementById('ingredients').addEventListener('change', function() {
+                    let selectedOptions = Array.from(this.selectedOptions).map(function(option) {
+                        return option.text;
+                    });
+                    
+                    selectedIngredientsArray = Array.from(this.selectedOptions).map(function(option) {
+                        return option.value;
+                    });
+
+                    let selectedIngredientsDiv = document.getElementById('selectedIngredients');
+                    selectedIngredientsDiv.innerHTML = '<p>Ingrédients sélectionnés : ' + selectedOptions.join(', ') + '</p>';
+                });
+            </script>
         </div>
     </div>
 </div>

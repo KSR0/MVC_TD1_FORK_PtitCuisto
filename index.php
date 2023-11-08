@@ -4,6 +4,7 @@ require_once('src/controllers/edito.php');
 require_once('src/controllers/liste_recette.php');
 require_once('src/controllers/liste_recette_categorie.php');
 require_once('src/controllers/liste_recette_titre.php');
+require_once('src/controllers/liste_recette_ingredients.php');
 require_once('src/controllers/details_recette.php');
 require_once('src/controllers/connexion_compte.php');
 require_once('src/controllers/creation_compte.php');
@@ -18,6 +19,10 @@ try {
 
 			else if (isset($_GET['titre'])) {
 				recettes_titre($_GET['titre']);
+			}
+
+			else if (isset($_GET['ingredients'])) {
+				recettes_ingredients($_GET['ingredients']);
 			}
 			
 			else {

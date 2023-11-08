@@ -184,6 +184,63 @@ class RecetteRepository {
         return $recettes;
         
     }
+
+    public function getRecettesIngredients($ingredients) {
+        $this->dbConnect($this);
+    
+        $conditions = [];
+        $parametres = [];
+        $ingredients = explode(',', $ingredients);
+    
+        foreach ($ingredients as $ingredient) {
+            $conditions[] = "REC_CONTENU LIKE CONCAT('%', ?, '%')";
+            $parametres[] = $ingredient;
+        }
+    
+        $conditionCombinee = implode(' AND ', $conditions);
+    
+        $requeteRecettes = $this->bdd->prepare(
+            "SELECT REC_ID, CAT_ID, REC_IMAGE, REC_TITRE, REC_CONTENU, REC_RESUME, CAT_INTITULE, REC_DATE_CREA, REC_DATE_MODIF, USER_ID, USER_PSEUDO
+            FROM FORK_RECETTE
+            JOIN FORK_CATEGORIE USING(CAT_ID)
+            JOIN FORK_UTILISATEUR USING(USER_ID)
+            WHERE ($conditionCombinee)
+            ORDER BY REC_TITRE ASC;"
+        );
+        
+        $requeteRecettes->execute($parametres);
+    
+        $recettes = [];
+    
+        while (($row = $requeteRecettes->fetch())) {
+            echo 'id' . $row['REC_ID'];
+            $recette = new Recette();
+            $recette->rec_id = $row['REC_ID'];
+            $recette->cat_id = $row['CAT_ID'];
+            $recette->user_id = $row['USER_ID'];
+            $recette->rec_titre = $row['REC_TITRE'];
+            $recette->rec_contenu = $row['REC_CONTENU'];
+            $recette->rec_resume = $row['REC_RESUME'];
+            $recette->rec_image = $row['REC_IMAGE'];
+            $recette->cat_intitule = $row['CAT_INTITULE'];
+            $recette->rec_date_crea = $row['REC_DATE_CREA'];
+            $recette->rec_date_modif = $row['REC_DATE_MODIF'];
+            $recette->user_pseudo = $row['USER_PSEUDO'];
+            
+            $requeteTags = $this->bdd->prepare(
+                "SELECT TAG_INTITULE FROM FORK_TAGS JOIN FORK_MENTIONNER USING(TAG_ID) JOIN FORK_RECETTE USING(REC_ID) WHERE REC_ID = ?"
+            );
+            $requeteTags->execute([$recette->rec_id]);
+            $recette->tags_intitule = '';
+            while (($row = $requeteTags->fetch())) {
+                $recette->tags_intitule .= '#' . $row['TAG_INTITULE'] . ' ';
+            }
+            $recettes[] = $recette;
+        }
+    
+        return $recettes;
+    }
+    
 }
 
 ?>
