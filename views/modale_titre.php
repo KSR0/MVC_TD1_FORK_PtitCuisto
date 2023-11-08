@@ -20,7 +20,7 @@
             <div class="relative">
                 <input type="text" id="recette" name="recette" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Saisissiez un titre" required>
                 <a id="lien_recette" href="index.php?action=liste_recette&titre=">
-                    <button type="submit" name="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Rechercher</button>
+                    <button class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Rechercher</button>
                 </a>
             </div><br>
             <div id="resultat">
@@ -33,7 +33,7 @@
                         let saisie = $(this).val();
                         if (saisie.length >= 1) {
                             $.ajax({
-                                url: "views/sugg.php?saisie=" + saisie,
+                                url: "views/bdd_autocompletion.php?saisie=" + saisie,
                                 method: "GET",
                                 success: function (data) {
                                     $("#resultat").html(data);
@@ -51,6 +51,23 @@
                         });
                 }); 
             });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $("#recette").keyup(function () {
+                        let saisie = $(this).val();
+                        let divRecettes = document.querySelector('#resultat');
+                        if (saisie.length >= 1) {
+
+                        };
+                        let recettes = <?php echo json_encode($recettes) ?>;
+                        let content = '';
+                        array.forEach(recettes => {
+                            $("#resultat").innerHTML = recettes.rec_nom;
+                        });
+                        divRecettes.innerHTML += content;
+                    });
+                });
             </script>
         </div>
     </div>

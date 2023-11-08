@@ -23,9 +23,6 @@ try {
 			else {
 				recettes();
 			}
-
-			
-			
 		}
 		else if ($_GET['action'] === 'details_recette') {
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
