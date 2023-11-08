@@ -13,7 +13,7 @@ class Recette {
     public string $tags_intitule;
     public string $rec_date_crea;
     public string $rec_date_modif;
-    public string $rec_auteur;
+    public string $user_pseudo;
 }
 
 class RecetteRepository {
@@ -51,7 +51,7 @@ class RecetteRepository {
             $recette->cat_intitule = $row['CAT_INTITULE'];
             $recette->rec_date_crea = $row['REC_DATE_CREA'];
             $recette->rec_date_modif = $row['REC_DATE_MODIF'];
-            $recette->rec_auteur = $row['USER_PSEUDO'];
+            $recette->user_pseudo = $row['USER_PSEUDO'];
             
             $requeteTags = $this->bdd->prepare(
                 "SELECT TAG_INTITULE FROM FORK_TAGS JOIN FORK_MENTIONNER USING(TAG_ID) JOIN FORK_RECETTE USING(REC_ID) WHERE REC_ID = ?"
@@ -87,7 +87,7 @@ class RecetteRepository {
         $recette->tags_intitule = $row['TAG_INTITULE'];
         $recette->rec_date_crea = $row['REC_DATE_CREA'];
         $recette->rec_date_modif = $row['REC_DATE_MODIF'];
-        $recette->rec_auteur = $row['USER_PSEUDO'];
+        $recette->user_pseudo = $row['USER_PSEUDO'];
 
         $requeteTags = $this->bdd->prepare(
             "SELECT TAG_INTITULE FROM FORK_TAGS JOIN FORK_MENTIONNER USING(TAG_ID) JOIN FORK_RECETTE USING(REC_ID) WHERE REC_ID = ?"

@@ -9,10 +9,13 @@
 <div id="recette">
     <?php
         echo "<img src='" . $recette->rec_image . "' alt='Image recette " . $recette->rec_titre . "' width='500px'/></a>" . "<br>" .
-        "<a href='index.php?action=recette_unique&id=" . $recette->rec_id . "'>" . strtoupper($recette->rec_titre) . "</a><br>" .
+        "Titre : " . strtoupper($recette->rec_titre) . "<br>" .
+        "Auteur :"  . $recette->user_pseudo . "<br>" .
         "Categorie : " . $recette->cat_intitule . "<br>" .
         "Resumé : " . $recette->rec_resume . "<br>" . 
-        "Tags : " . $recette->tags_intitule;
+        "Date de création :" . $recette->rec_date_crea . "<br>" .
+        "Dernière modification :" . $recette->rec_date_modif . "<br>" .
+        "Tags : " . $recette->tags_intitule . "<br>";
     ?>
 </div>
 
