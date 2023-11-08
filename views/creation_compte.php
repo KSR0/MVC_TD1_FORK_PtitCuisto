@@ -93,7 +93,7 @@
                     <div class="flex justify-center">
 
                         <div class="flex items-start">
-                            <a href="connexion_compte.php" title="Se connecter" class="text-charte_bleu_fonce text-sm font-medium hover:underline text-right">J'ai déjà un compte.</a>
+                            <a href="index.php?action=connexion_compte" title="Se connecter" class="text-charte_bleu_fonce text-sm font-medium hover:underline text-right">J'ai déjà un compte.</a>
                         </div>
 
                     </div>

@@ -17,36 +17,41 @@
             </div>
 
             
-            <form>   
                 <h3 class="text-charte_bleu_clair block pb-2 text-2xl font-medium">Choix des catégories</h3>
+
+                <!-- <form action="index.php?action=liste_recette&filtre=true" method="get"> NE FONCTIONNE PAS COMME VOULU-->
                 <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r"> 
+                    <a href="index.php?action=liste_recette&type_plat=entree">
                         <div class="bg-charte_gris border-2 border-charte_bleu_fonce flex items-center pl-3">
-                            <input id="horizontal-list-radio-license" type="radio" value="" name="list-radio" class="w-4 h-4">
-                            <label for="horizontal-list-radio-license" class="w-full py-3 ml-2 test-xl text-charte_blanc">Entrée </label>
+                            <p class="w-full py-3 ml-2 test-xl text-charte_blanc">Entrée</p>
                         </div>
+                    </a>
                     </li>
 
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                    <a href="index.php?action=liste_recette&type_plat=plat">
                         <div class="bg-charte_gris border-2 border-charte_bleu_fonce flex items-center pl-3">
-                            <input id="horizontal-list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4">
-                            <label for="horizontal-list-radio-id" class="w-full py-3 ml-2 test-xl text-charte_blanc">Plat</label>
+                        <p class="w-full py-3 ml-2 test-xl text-charte_blanc">Plat</p>
                         </div>
+                    </a>
                     </li>
 
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r">
+                    <a href="index.php?action=liste_recette&type_plat=dessert">
                         <div class="bg-charte_gris border-2 border-charte_bleu_fonce flex items-center pl-3">
-                            <input id="horizontal-list-radio-millitary" type="radio" value="" name="list-radio" class="w-4 h-4">
-                            <label for="horizontal-list-radio-millitary" class="w-full py-3 ml-2 test-xl text-charte_blanc">Dessert</label>
+                        <p class="w-full py-3 ml-2 test-xl text-charte_blanc">Dessert</p>
                         </div>
+                    </a>
                     </li>
                 </ul>
 
-                <div class="flex justify-end pt-2 mt-4">
-                    <button class="modal1-close px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Fermer</button>
-                    <input type="submit" name="submit" class="cursor-pointer modal1-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">
-                </div>
-            </form>
+            <!-- <div class="flex justify-end pt-2 mt-4">
+                <button class="modal1-close px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Fermer</button>
+                <input type="submit" class="cursor-pointer modal1-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">
+            </div> -->
+            <!-- </form> -->
+
         </div>
     </div>
 </div>
